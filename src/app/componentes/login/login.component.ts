@@ -1,23 +1,24 @@
 import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-import Usuario from '../../../clases/usuario';
+import {AutenticacionService} from '../../servicios/autenticacion.service'
+import {NgxSpinnerService} from 'ngx-spinner'
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-
 export class LoginComponent {
 
   @ViewChild("container") public container!:ElementRef;
 
-  public usuarios : any[] = JSON.parse(localStorage.getItem('Usuarios') || "[]")
-  public nombre : string = ""
-  public email : string = ""
-  public clave : string = ""
+  //public usuarios : any[] = JSON.parse(localStorage.getItem('Usuarios') || "[]")
+  public nombreUsuario : string = "";
+  public email : string = "";
+  public clave : string = "";
+  public mensajeError : string = "";
 
-  constructor(private renderer2:Renderer2,private router:Router)
+  constructor(private renderer2:Renderer2,private router:Router,private autenticador:AutenticacionService, private spinner:NgxSpinnerService)
   {
 
   }
@@ -26,89 +27,89 @@ export class LoginComponent {
   {
     if (estado == "signUp")
     {
-      this.renderer2.addClass(this.container.nativeElement,"right-panel-active")
+      this.renderer2.addClass(this.container.nativeElement,"right-panel-active");
+      setTimeout(() =>{
+        this.navigate("registro");
+      },500)
     }
     else
     {
-      this.renderer2.removeClass(this.container.nativeElement,"right-panel-active")
+      this.renderer2.removeClass(this.container.nativeElement,"right-panel-active");
     }
-  }
-
-  private verificarEmail() : Boolean
-  {
-
-    let retorno = false
-
-    for(let i = 0; i < this.usuarios.length; i++)
-    {
-      if(this.email == this.usuarios[i].email)
-      {
-        retorno = true
-        break;
-      }
-    }   
-    return retorno; 
-  }
-
-  private verificarContraseña() : Boolean
-  {
-
-    let retorno = false
-
-    for(let i = 0; i < this.usuarios.length; i++)
-    {
-      if(this.clave == this.usuarios[i].clave)
-      {
-        retorno = true
-        break;
-      }
-    }    
-
-    return retorno;
-  }
-
-  public registrarse() : Boolean
-  {
-    let retorno = false
-   
-    if (this.nombre != "" && this.email != "" && this.clave != "" && this.verificarEmail() == false)
-    {
-      this.usuarios.push(new Usuario(this.nombre,this.email,this.clave))
-      localStorage.setItem("Usuarios", JSON.stringify(this.usuarios));
-      retorno = true
-    }
-
-    return retorno
-  }
-
-  public prueba (prueba:string)
-  {
-    console.log(this.email + "-" + this.clave + "-" + this.nombre +  " acción: " + prueba)
-  }
-
-  public administrarSesion(accion:string) : void
-  {
-    accion == "login" ? (this.loguearse() ? console.log("Usuario: " + this.email + " logueado con éxito") : console.log("No se a podido loguear email no existente o clave incorrecta")) :
-    ((this.registrarse() ? console.log("Usuario: " + this.email + " registrado con éxito") : console.log("No se a podido registrar el usuario. Puede que el mail ya este en uso o los datos esten vacios o mal escritos")));
   }
 
   public loguearse()
   {
-    let retorno = false
-    if(this.verificarEmail() && this.verificarContraseña())
-    {
-      retorno = true
-    }
-    console.log("Usuario " +  this.email + " Logueado: " + retorno)
+    this.spinner.show()  
+    this.autenticador.login(this.email,this.clave).then(respuesta => {
+      setTimeout(() =>{
 
-    return retorno
+        if(typeof respuesta != "string")
+        {
+          if (respuesta.user?.emailVerified)
+          {
+            this.navigate("home")
+          }
+          else
+          {
+            this.navigate("validar-email")
+          }
+        }
+        else
+        {
+          this.mostrarError(respuesta);
+        }
+        this.spinner.hide();
+      },500)
+    })
   }
+
+  public accesoRapido()
+  {
+    this.email = "marification66@gmail.com";
+    this.clave = "123456";
+    this.loguearse()
+  }
+
+  public mostrarError(error:string)
+  {
+    switch(error)
+    {
+      case "auth/invalid-email":
+        this.mensajeError = 'El formato de correo es invalido';
+        break;
+      case "auth/operation-not-allowed":
+        this.mensajeError = "Operación no permitida"
+        break;
+      default:
+        this.mensajeError = 'El usuario o contraseña no son correctos. Por favor verifique los datos.'
+    }
+
+    if (this.email == "" || this.clave == "")
+    {
+      this.mensajeError = "El campo email o contraseña están vacios por favor ingrese sus datos";
+    }
+
+    if (this.email == "")
+    {
+      this.mensajeError = "El campo email está vació. Por favor ingrese su mail";
+    }
+  }
+
+  /*
+  public async cargando(segundos:number)
+  {
+    this.spinner.show();
+    setTimeout(()=>
+    {
+      this.spinner.hide();
+    },segundos)
+  }
+  */
+  
   public navigate(url:string)
   {
     this.router.navigateByUrl(url);
   }
-
-
-
-
 }
+ 

@@ -4,10 +4,13 @@ import { HomeComponent } from './componentes/home/home.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { ErrorComponent } from './componentes/error/error.component';
+import { RegistroComponent } from './componentes/registro/registro.component';
+import { RecuperarClaveComponent } from './componentes/recuperar-clave/recuperar-clave.component';
+import { ValidarMailComponent } from './componentes/validar-mail/validar-mail.component';
 
 const routes: Routes = [
   {
-    path:"",redirectTo:"home",pathMatch:"full"
+    path:"",redirectTo:"login",pathMatch:"full"
   },
   {
     path:"home",
@@ -18,8 +21,20 @@ const routes: Routes = [
     component:LoginComponent
   },
   {
+    path:"registro",
+    component:RegistroComponent
+  },
+  {
     path:'quien-soy',
     component:QuienSoyComponent
+  },
+  {
+    path:'recuperar-clave',
+    component:RecuperarClaveComponent
+  },
+  {
+    path:'validar-email',
+    component:ValidarMailComponent
   },
   {
     path:'error',
@@ -33,4 +48,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  
+}

@@ -1,3 +1,4 @@
-<p>home works!</p>
-<router-outlet></router-outlet>
-
+<body *ngIf="usuarioLogueado|async as user">
+    <app-navbar [usuarioActual]="user"></app-navbar>
+    <input type="button" (click)="cerrarSesion()" value="Cerrar Sesión">
+</body>

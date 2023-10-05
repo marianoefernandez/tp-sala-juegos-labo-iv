@@ -1,0 +1,5 @@
+<body *ngIf="usuarioLogueado|async as user">
+    <h2 >Se envió un mail de confirmación a {{user.email}}</h2>
+    <input type="button" (click)="verificarMail()" value="Ya lo verifique">
+</body>
+<router-outlet></router-outlet>
