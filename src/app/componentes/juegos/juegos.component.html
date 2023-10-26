@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="./assets/ahorcado/ahorcado_0.png">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>Ahorcado</h3>
+            <p>El clásico juego del ahorcado consiste en adivinar la palabra oculta por los guiones, el jugador tiene 6 posibilidades para adivinar la palabra. Por cada letra acertada el jugador ganara 10 puntos, por cada letra errada perdera 5, si el jugador adivina la palabra completa gana 100 puntos</p>
+            <button (click)="navigate('principal/juegos/ahorcado')">Jugar Ahora</button>
+        </div> 
+    </div>
+
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="./assets/mayor-menor/mayor-menor-logo.jpg">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>Mayor-Menor</h3>
+            <p>En el siguiente juego se tirara una carta y se preguntara si la próxima es mayor o menor a la que fue tirada, si el jugador acierta sigue jugando sino pierde</p>
+            <button routerLink="mayor-menor" >Jugar Ahora</button>
+        </div> 
+    </div>
+    
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="./assets/preguntados/preguntados_logo.png">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>Preguntados</h3>
+            <p>El clásico juego de preguntas y respuestas vuelve con todo!<br>El juego consiste en responder preguntas de una temática aleatoria en donde se tiene que adivinar la respuesta de la misma. El jugador tiene 3 intentos y por cada respuesta correcta suma 100 puntos.</p>
+            <button routerLink="preguntados">Jugar Ahora</button>
+        </div> 
+    </div>
+    
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="./assets/uno/uno_logo.png">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>UNO!</h3>
+            <p>El clásico juego de cartas vuelve con todo<br>Juega al UNO y diviertete con tus amigos acá en la WEB, el ganador es el que se queda sin cartas.</p>
+            <button routerLink="uno">Jugar Ahora</button>
+        </div> 
+    </div>
+</body>
+</html>
+<router-outlet></router-outlet>
+

@@ -1,0 +1,23 @@
+<body>
+    <button (click)="reiniciarJuego()" [hidden]="estadoJuego">Volver a jugar</button>
+    <div class="card-body text-black bg-dark" id="tablero">
+        <p>Oponente:</p>
+        <div id="cartasOponente" *ngFor="let carta of cartasOponente">
+            <input type="image" src={{carta.textura}} id="cartaOponente" height="96px" width="96px">
+        </div>
+
+        <p>Color carta cartaActual: {{cartaActual.color}} </p>
+        <p>Cartas Acumuladas: {{cuentaCartas}} </p>
+
+        <div id="cartaMedio">
+            <p>Turno:{{turnoActual}}</p>
+            <input disabled="disabled" id="cartaActual" type="image" src={{cartaActual.textura}} height="96px" width="96px">
+            <input [disabled]="turnoBool"  id="mazo" (click)="sacarCarta(1)" type="image" src="./assets/uno/card_back.png" height="96px" width="96px">
+        </div>
+
+        <p id="jugador" >Jugador:</p>
+        <div id="cartasJugador" *ngFor="let carta of cartasJugador; index as i">
+            <input [disabled]="turnoBool" (click)="jugar(i)" type="image" src={{carta.textura}} id="cartaJugador" height="96px" width="96px">
+        </div>
+    </div>
+</body>

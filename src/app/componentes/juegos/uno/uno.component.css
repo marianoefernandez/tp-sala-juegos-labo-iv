@@ -1,0 +1,96 @@
+p
+{
+    text-align: center;
+    font-size: large;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 20px 20px;
+    color: #efefef;
+}
+
+body 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160vh;
+    background: #efefef;
+    flex-wrap: wrap;
+}
+
+#cartasOponente
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;   
+}
+
+#cartasJugador
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;   
+}
+
+#cartaJugador
+{
+	color: #FFFFFF;
+	font-weight: bold;
+    transition: transform 80ms ease-in;
+    margin: 0px 5px;   
+    transition: background-color 0.5s;  
+}
+
+#cartaOponente
+{
+	color: #FFFFFF;
+	font-weight: bold;
+    transition: transform 80ms ease-in;
+    margin: 0px 5px;   
+    transition: background-color 0.5s;  
+}
+
+#cartaJugador:hover
+{
+    border:solid;
+    border-color: rgb(186, 103, 211);
+    cursor: pointer;
+}
+
+#cartaMedio
+{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#mazo
+{
+    margin: 10px;
+}
+
+#cartaActual
+{
+    margin: 10px;
+}
+
+#mazo:hover
+{
+    border:solid;
+    border-color: rgb(186, 103, 211);
+    cursor: pointer;
+}
+
+#tablero
+{
+    text-align: center;
+    flex: auto;
+    width: 1100px;
+    height: 950px;
+    background: #fff;
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 10px 120px;
+}

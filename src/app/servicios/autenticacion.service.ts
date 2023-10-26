@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable, from, map } from 'rxjs';
+import { Firestore, collection, addDoc, onSnapshot } from '@angular/fire/firestore';
+
 import  firebase  from 'firebase/compat/app';
+import { FirestoreService } from './firestore.service';
 
 
 @Injectable({
@@ -9,7 +12,10 @@ import  firebase  from 'firebase/compat/app';
 })
 export class AutenticacionService {
 
-  constructor(private autenticador: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(private autenticador: AngularFireAuth, private firestore: FirestoreService) { }
+
+  public usuarioActual:any|null =null;
+
   
   async registro(email:string,contraseña:string)
   {
@@ -17,18 +23,14 @@ export class AutenticacionService {
     {
       const usuario = await this.autenticador.createUserWithEmailAndPassword(email,contraseña);
       usuario.user?.sendEmailVerification()
-      /*
-      this.firestore.collection("usuarios").doc(usuario.user?.uid).set(
+      const usuarioInfo =
       {
         uid: usuario.user?.uid,
         email: usuario.user?.email,
         fechaRegistro: new Date().toLocaleString(),
-        nombreDeUsuario:"" //En desarrollo -> Próxima versión
-      }).then(function(){
-        console.log("Usuario registrado con exito");
-        usuario.user?.sendEmailVerification()
-      })
-      */
+        nombreDeUsuario:"" //En desarrollo -> Próxima versión 
+      }
+      console.log(this.firestore.agregarInformacionUsuario(usuarioInfo));
       return usuario;
     }
     catch(error:any)
@@ -71,4 +73,5 @@ export class AutenticacionService {
   {
     return this.autenticador.signOut();
   }
+
 }

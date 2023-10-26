@@ -2,6 +2,7 @@ import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import {AutenticacionService} from '../../servicios/autenticacion.service'
 import {NgxSpinnerService} from 'ngx-spinner'
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent {
     {
       this.renderer2.addClass(this.container.nativeElement,"right-panel-active");
       setTimeout(() =>{
-        this.navigate("registro");
+        this.navigate("sesiones/registro");
       },500)
     }
     else
@@ -42,17 +43,19 @@ export class LoginComponent {
   {
     this.spinner.show()  
     this.autenticador.login(this.email,this.clave).then(respuesta => {
-      setTimeout(() =>{
+      setTimeout(async () =>{
 
         if(typeof respuesta != "string")
         {
           if (respuesta.user?.emailVerified)
           {
-            this.navigate("home")
+            const observable = this.autenticador.obtenerUsuarioLogueado();
+            this.autenticador.usuarioActual = await firstValueFrom(observable);
+            this.navigate("principal");
           }
           else
           {
-            this.navigate("validar-email")
+            this.navigate("sesiones/validar-email");
           }
         }
         else

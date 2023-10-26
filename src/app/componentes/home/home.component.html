@@ -1,4 +1,59 @@
-<body *ngIf="usuarioLogueado|async as user">
-    <app-navbar [usuarioActual]="user"></app-navbar>
-    <input type="button" (click)="cerrarSesion()" value="Cerrar Sesión">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="https://cdn.icon-icons.com/icons2/272/PNG/512/Play_Games_30030.png">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>Juegos</h3>
+            <p>Juega a nuestros grandes videojuegos como lo son el clásico "AHORCADO", "MAYOR O MENOR" (juego de cartas) , el divertido juego de preguntas y respuestas "PREGUNTADOS" y por último el "UNO", el clásico juego de cartas de toda la vida.</p>
+            <button (click)="navigate('principal/juegos')">Quiero jugar</button>
+        </div> 
+    </div>
+
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="https://img.freepik.com/vector-premium/icono-vector-chat_676179-133.jpg">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>Chat</h3>
+            <p>Diviertete con tus amigos conversando en una de nuestras salas de chat y que puedan hablar de sus experiencias de juego</p>
+            <button (click)="navigate('principal/chat')" >Chatea con tus amigos</button>
+        </div> 
+    </div>
+    
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="https://www.yoinfluyo.com/wp-content/uploads/2022/09/quien_soy.jpg">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>¿Quién soy?</h3>
+            <p>¿Quieres conocerme más a profundidad? entonces apreta el botón para saber más de mi</p>
+            <button (click)="navigate('principal/quien-soy')">Conocerme</button>
+        </div> 
+    </div>
 </body>
+</html>
+<router-outlet></router-outlet>
+

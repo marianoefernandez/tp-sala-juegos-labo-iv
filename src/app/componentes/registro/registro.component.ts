@@ -34,7 +34,7 @@ export class RegistroComponent
     {
       this.renderer2.removeClass(this.container.nativeElement,"right-panel-active")
       setTimeout(() =>{
-        this.navigate("login")
+        this.navigate("sesiones/login")
       },500)
     }
   }
@@ -47,7 +47,7 @@ export class RegistroComponent
         if(typeof respuesta != "string")
         {
           console.log("Registrado con éxito: " + this.email);
-          this.navigate("validar-email");
+          this.navigate("sesiones/validar-email");
         }
         else
         {

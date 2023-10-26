@@ -1,0 +1,50 @@
+#mensajes
+{
+    height: 450px;
+	overflow-y: scroll;
+    flex-wrap: wrap;
+}
+
+#mensaje
+{
+    max-width: min-content;
+    border-radius: 20px;
+	border: 1px solid #000000;
+	color: #FFFFFF;
+    font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	transition: transform 80ms ease-in;
+}
+
+#mensajeReceptor #mensaje
+{
+	background-color: #3700ff;
+}
+
+#mensajeEmisor #mensaje
+{
+	background-color: #ff0000;
+}
+
+#mensajeEmisor
+{
+	display: flex;
+	justify-content: right;
+}
+
+#mensajeReceptor
+{
+	display: flex;
+	justify-content: left;
+}
+
+#hora
+{
+	font-size: 12px;
+	font-weight: 700;
+	padding: 12px 10px;
+	letter-spacing: 1px;
+}
+

@@ -1,1 +1,20 @@
-<p>preguntados works!</p>
+<body>
+<button id="btnJugar" [hidden]="volverAJugarBoton" (click)="rejugar()">Volver a jugar</button>
+<div id="logo">
+    <img id="logo" src="./assets/preguntados/preguntados_logo.png" width="64px" height="64px">
+</div>
+<p id="tematica">Tema: {{tematica}}</p>
+<div class="card-body text-black bg-danger" id="tablero">
+    <div id="foto">
+        <img src={{foto}} width="400px" height="200px">        
+    </div>
+    <h3>Pregunta : {{pregunta}}</h3>
+    <div *ngFor="let respuesta of respuestas; index as i" id="respuestas">      
+        <div id="respuestas">
+            <button id="btnRespuesta" [disabled]="!volverAJugarBoton" (click)="jugar(i)">{{respuesta}}</button>
+        </div>
+    </div>
+    <p id="puntaje">Puntaje: {{puntuacion}}</p>
+    <p id="intentos">Intentos: {{vidas}}</p>    
+</div>
+</body>

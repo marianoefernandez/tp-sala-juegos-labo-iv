@@ -1,0 +1,12 @@
+
+<body>
+    <h1>Mayor o Menor</h1>
+    <div id="logo">
+        <img  src="./assets/mayor-menor/mayor-menor-logo.jpg" width="96px" height="96px">
+    </div>
+    <p [hidden]="mostrarPuntuacion" id="puntaje">Puntuación: {{puntuacionFinal}}</p>
+    <div id="btnJugar">
+        <button (click)="jugar()">{{btnLabel}}</button>
+    </div>    
+</body>
+

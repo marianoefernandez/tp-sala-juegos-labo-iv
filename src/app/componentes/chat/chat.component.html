@@ -1,0 +1,31 @@
+<div class="card text-light bg-danger">
+    <div class="card-header text-center">
+        SALA DE JUEGOS
+    </div>
+  
+    <div id="mensajes" class="card-body text-black bg-light">
+        <div *ngFor="let chat of mensajes">
+            <div *ngIf="chat.usuarioEmail != emailUsuario else elseBlock" id="mensajeReceptor">
+                <p id="mensaje" >{{chat.usuarioEmail}}:{{chat.mensaje}}</p>
+                <p id="hora">{{chat.hora.toDate().getHours()}}:{{chat.hora.toDate().getMinutes()}}</p>
+            </div>
+            <ng-template #elseBlock>
+                <div id="mensajeEmisor">
+                    <p id="mensaje" >{{chat.usuarioEmail}}:{{chat.mensaje}}</p>
+                    <p id="hora">{{chat.hora.toDate().getHours()}}:{{chat.hora.toDate().getMinutes()}}</p>
+                </div>
+            </ng-template>
+        </div> 
+    </div>
+  
+    <form class="card-footer text-muted input-group">
+    <input type="text" class="form-control" placeholder="Ingrese su mensaje"
+    [(ngModel)]="mensajeNuevo"
+    [ngModelOptions]="{standalone: true}">>
+    <div class="input-group-append">
+    <span class="input-group-text m-1" id="basic-addon2">
+        <button (click)="enviarMensaje()">Enviar</button>
+        </span>
+      </div>
+      </form>
+  </div>
