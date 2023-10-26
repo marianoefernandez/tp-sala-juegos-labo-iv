@@ -1,43 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './componentes/home/home.component';
-import { LoginComponent } from './componentes/login/login.component';
-import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { ErrorComponent } from './componentes/error/error.component';
-import { RegistroComponent } from './componentes/registro/registro.component';
-import { RecuperarClaveComponent } from './componentes/recuperar-clave/recuperar-clave.component';
-import { ValidarMailComponent } from './componentes/validar-mail/validar-mail.component';
+import { estaLogueadoGuard } from './guards/esta-logueado.guard';
+import { noEstaLogueadoGuard } from './guards/no-esta-logueado.guard';
 
 const routes: Routes = [
   {
-    path:"",redirectTo:"login",pathMatch:"full"
+    path:"",redirectTo:"sesiones",pathMatch:"full"
   },
   {
-    path:"home",
-    component:HomeComponent
+    path:"sesiones",
+    loadChildren: ()=>import('./componentes/sesiones/sesiones.module').then(modulo => modulo.SesionesModule),
+    canActivate:[noEstaLogueadoGuard]
   },
   {
-    path:"login",
-    component:LoginComponent
+    path:"principal",
+    loadChildren: ()=>import('./componentes/principal/principal.module').then(modulo => modulo.PrincipalModule),
+    canActivate:[estaLogueadoGuard]
   },
   {
-    path:"registro",
-    component:RegistroComponent
-  },
-  {
-    path:'quien-soy',
-    component:QuienSoyComponent
-  },
-  {
-    path:'recuperar-clave',
-    component:RecuperarClaveComponent
-  },
-  {
-    path:'validar-email',
-    component:ValidarMailComponent
-  },
-  {
-    path:'error',
+    path:"error",
     component:ErrorComponent
   },
   {

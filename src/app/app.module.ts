@@ -3,21 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './componentes/login/login.component';
-import { HomeComponent } from './componentes/home/home.component';
-import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
-import { ErrorComponent } from './componentes/error/error.component';
 import { FormsModule } from '@angular/forms';
-import { RegistroComponent } from './componentes/registro/registro.component';
-import { RecuperarClaveComponent } from './componentes/recuperar-clave/recuperar-clave.component';
-import { PreguntadosComponent } from './componentes/juegos/preguntados/preguntados.component';
-import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { AngularFireModule } from '@angular/fire/compat';
-import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { ValidarMailComponent } from './componentes/validar-mail/validar-mail.component';
+import { HttpClientModule } from '@angular/common/http';
+import {AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { ErrorComponent } from './componentes/error/error.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBgFfrHP_rBJS2JI4WSUHjfJ7Dx3LQt4wA",
@@ -31,26 +26,21 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
-    QuienSoyComponent,
     ErrorComponent,
-    RegistroComponent,
-    RecuperarClaveComponent,
-    PreguntadosComponent,
-    NavbarComponent,
-    ValidarMailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatIconModule,
     BrowserAnimationsModule,
     NgbModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore())
   ],
   providers: [],
   bootstrap: [AppComponent]

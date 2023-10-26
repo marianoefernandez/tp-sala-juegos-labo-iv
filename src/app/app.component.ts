@@ -16,36 +16,12 @@ export class AppComponent implements OnInit {
 
   constructor(private router:Router,private spinner:NgxSpinnerService,private autenticador:AutenticacionService) 
   {
-    
-  }
 
-  public cargoDatos : Boolean = false;
+  }
 
   async ngOnInit()
   {
-    const observable = this.autenticador.obtenerUsuarioLogueado()
-    let usuarioActual = await firstValueFrom(observable);
-    if (usuarioActual != null)
-    {
-      if(this.router.url == "/login" || this.router.url == "/registro" || this.router.url == "/validar-email")
-      {
-        if (usuarioActual.emailVerified)
-        {
-          this.navigate("home");
-        }
-      }
-
-      console.log("Usuario logueado " + usuarioActual.email);
-    }
-    else
-    {
-      if(this.router.url != "/login" && this.router.url != "/registro")
-      {
-        this.navigate("login");
-      }
-      console.log("Usuario no está logueado");
-    }
-    this.cargoDatos = true;
+    
   }
 
   public cargando()
