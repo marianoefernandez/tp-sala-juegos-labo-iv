@@ -4,7 +4,7 @@ body
     align-items: center;
     justify-content: center;
     min-width: 100vh;
-    min-height: 100vh;
+    min-height: 120vh;
     background: #efefef;
     flex-wrap: wrap;
 }
@@ -78,4 +78,32 @@ h2
 	font-weight: bold;
     transition: transform 80ms ease-in;
     margin: 0px 10px;   
+}
+
+#btnJugar
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button
+{
+    max-width: min-content;
+    border-radius: 20px;
+	border: 1px solid #000000;
+    background-color: #ff0000;
+	color: #FFFFFF;
+    font-size: 24px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+    text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.letra:disabled
+{
+    background-color: transparent;
+    color: #000000;
 }

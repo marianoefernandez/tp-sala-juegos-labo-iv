@@ -2,11 +2,8 @@ import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { PreguntadosService } from 'src/app/servicios/preguntados.service';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
-import translate from 'google-translate-open-api';
 import swal from 'sweetalert2';
-import { time } from 'console';
-import { title } from 'process';
-import { text } from 'stream/consumers';
+import { TraductorService } from 'src/app/servicios/traductor.service';
 
 @Component({
   selector: 'app-preguntados',
@@ -15,8 +12,7 @@ import { text } from 'stream/consumers';
 })
 
 export class PreguntadosComponent implements OnInit,OnDestroy{
-
-  constructor(private preguntados:PreguntadosService, private spinner:NgxSpinnerService)
+  constructor(private preguntados:PreguntadosService, private spinner:NgxSpinnerService, private traductor:TraductorService)
   {
 
   }
@@ -27,7 +23,6 @@ export class PreguntadosComponent implements OnInit,OnDestroy{
   public respuestas : Array<string> = [];
   public suscripcion!: Subscription;
   public suscripcionDos!: Subscription;
-  public informacionTraducida:any = false;
   public puntuacion = 0;
   public vidas = 3;
   public volverAJugarBoton = true;
@@ -90,15 +85,24 @@ export class PreguntadosComponent implements OnInit,OnDestroy{
 
   public obtenerPregunta()
   {
-    this.informacionTraducida = false;
     this.spinner.show();
-    this.suscripcion = this.preguntados.obtenerPregunta().subscribe((respuesta: any)=>
+    this.suscripcion = this.preguntados.obtenerPregunta().subscribe(async (respuesta: any)=>
       {
         let choice = respuesta["results"][0];
         let informacion = this.generarInformacion(choice);
-        this.generarPregunta(informacion);
+        let tematicaIngles = choice["category"];
+        let informacionTraducida = await this.traductor.traducir(informacion);
         
-        this.suscripcionDos = this.preguntados.obtenerFoto(this.tematica).subscribe((respuesta:any)=>
+        if(informacionTraducida != null)
+        {
+          this.generarPregunta(informacionTraducida);
+        }
+        else
+        {
+          this.generarPregunta(informacion);
+        }
+        
+        this.suscripcionDos = this.preguntados.obtenerFoto(tematicaIngles).subscribe((respuesta:any)=>
         {
           let indice = Math.floor(Math.random() * (9 - 0)) + 0;
           this.foto = respuesta["results"][indice]["urls"]["regular"];

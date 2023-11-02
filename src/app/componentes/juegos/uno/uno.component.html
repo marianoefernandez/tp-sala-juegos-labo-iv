@@ -3,7 +3,7 @@
     <div class="card-body text-black bg-dark" id="tablero">
         <p>Oponente:</p>
         <div id="cartasOponente" *ngFor="let carta of cartasOponente">
-            <input type="image" src={{carta.textura}} id="cartaOponente" height="96px" width="96px">
+            <input type="image" src={{carta.texturaAtras}} id="cartaOponente" height="96px" width="96px">
         </div>
 
         <p>Color carta cartaActual: {{cartaActual.color}} </p>

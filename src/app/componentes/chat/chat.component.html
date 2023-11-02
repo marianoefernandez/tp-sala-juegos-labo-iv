@@ -3,7 +3,7 @@
         SALA DE JUEGOS
     </div>
   
-    <div id="mensajes" class="card-body text-black bg-light">
+    <div #scrollMe [scrollTop]="scrollMe.scrollHeight" id="mensajes" class="card-body text-black bg-light">
         <div *ngFor="let chat of mensajes">
             <div *ngIf="chat.usuarioEmail != emailUsuario else elseBlock" id="mensajeReceptor">
                 <p id="mensaje" >{{chat.usuarioEmail}}:{{chat.mensaje}}</p>

@@ -3,13 +3,16 @@
     <h1>Juego del Ahorcado</h1>
     <h2>El clásico juego del ahorcado consiste en adivinar la palabra oculta por los guiones, el jugador tiene 6 posibilidades para adivinar la palabra. Por cada letra acertada el jugador ganara 10 puntos, por cada letra errada perdera 5, si el jugador adivina la palabra completa gana 100 puntos</h2>
     
+    <div id="btnJugar">
+        <button (click)="rejugar()" [hidden]="juego.estadoJuego">Volver a jugar</button>
+    </div>
+
     <div>
         <div class="pantalla">
             <h3 class="puntaje">Puntaje: {{juego.puntuacion}}</h3>
             <h3 class="tematica">Tema:{{juego.tematica}}</h3>
             <img src="./assets/ahorcado/ahorcado_{{juego.vidas}}.png" class="ahorcado">
             <p class="palabra">{{juego.palabraOculta}}</p>
-            <input *ngIf ="juego.estadoJuego == false" class="rejugar" (click) = "rejugar()" type="button" value="Volver a jugar">
             <div class="letras" *ngFor="let letra of letrasJuego; index as i">
                 <input *ngIf="letra[devolverLetra((i))] && juego.estadoJuego; else elseBlock" (click)="jugar((i))" class="letra" type="button" value="{{devolverLetra((i))}}">
                 <ng-template #elseBlock><input class="letra" disabled="disabled" type="button" value="{{devolverLetra((i))}}">
