@@ -136,7 +136,33 @@ button.ghost {
     background: #0b6164;  
 }
 
+/* MODO NOCTURNO */
 
+.modo-nocturno
+{
+    background-color: #2b2121;
+    transition:background-color .5s;
+}
+
+.modo-nocturno .card
+{
+    background-color: #000000;
+}
+
+.modo-nocturno .description h4, .modo-nocturno .description h3
+{
+	color: #ffffff;
+}
+
+.modo-nocturno .description
+{
+    border-bottom: solid 1px rgba(255, 255, 255, 0.18);
+}
+
+.modo-nocturno p
+{
+	color: #dbcece;
+}
 
 
 

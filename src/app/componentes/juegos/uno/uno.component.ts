@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Carta } from './carta';
 import {NgxSpinnerService } from 'ngx-spinner';
 import swal from'sweetalert2';
+import { ModoNocturnoService } from 'src/app/servicios/modo-nocturno.service';
 
 @Component({
   selector: 'app-uno',
@@ -10,9 +11,15 @@ import swal from'sweetalert2';
 })
 export class UnoComponent implements OnInit {
 
-  constructor(private spinner:NgxSpinnerService)
-  {
+  @ViewChild("pagina") public pagina!:ElementRef;
 
+
+  constructor(private spinner:NgxSpinnerService, private renderer2:Renderer2,private modo:ModoNocturnoService)
+  {
+    modo.$emisor.subscribe(()=>
+    {
+      this.cambiarModo()
+    })
   }
 
   public cartasMazo:Array<Carta> = 
@@ -146,6 +153,12 @@ export class UnoComponent implements OnInit {
 
   ngOnInit()
   {
+    if(this.modo.modoNocturno)
+    {
+      setTimeout(() => {
+        this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")        
+      }, 1);
+    }
     this.mezclarMazo();
     this.repartirCartas();
     this.obtenerPrimerCarta();
@@ -477,6 +490,7 @@ export class UnoComponent implements OnInit {
         }))
   }
 
+  /*
   public verificarSiTieneEspeciales()
   {
     let retorno = false;
@@ -506,7 +520,7 @@ export class UnoComponent implements OnInit {
     return retorno;
 
   }
-
+  */
   public async jugar(indiceCarta:number)
   {
     if(this.verificarJugada(this.cartasJugador[indiceCarta]))
@@ -605,5 +619,17 @@ export class UnoComponent implements OnInit {
         this.cartasOponente.push(this.cartasMazo.pop()!);
       }
     }
+  }
+
+  public cambiarModo()
+  {
+    if(this.modo.modoNocturno)
+    {
+      this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")
+    }
+    else
+    {
+      this.renderer2.removeClass(this.pagina.nativeElement,"modo-nocturno")
+    }  
   }
 }

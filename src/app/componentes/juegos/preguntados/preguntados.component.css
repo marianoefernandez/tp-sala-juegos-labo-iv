@@ -101,3 +101,16 @@ body
     overflow: hidden;
     margin: 10px 120px;
 }
+
+/* MODO NOCTURNO */
+
+.modo-nocturno
+{
+    background-color: #2b2121;
+    transition:background-color .5s;
+}
+
+.modo-nocturno #tematica
+{
+    color: #FFFFFF;
+}

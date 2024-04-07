@@ -1,9 +1,10 @@
-import { Component, OnInit ,OnDestroy} from '@angular/core';
+import { Component, OnInit ,OnDestroy, ElementRef, ViewChild, Renderer2} from '@angular/core';
 import { PreguntadosService } from 'src/app/servicios/preguntados.service';
-import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 import { TraductorService } from 'src/app/servicios/traductor.service';
+import { ModoNocturnoService } from 'src/app/servicios/modo-nocturno.service';
 
 @Component({
   selector: 'app-preguntados',
@@ -11,10 +12,17 @@ import { TraductorService } from 'src/app/servicios/traductor.service';
   styleUrls: ['./preguntados.component.css']
 })
 
-export class PreguntadosComponent implements OnInit,OnDestroy{
-  constructor(private preguntados:PreguntadosService, private spinner:NgxSpinnerService, private traductor:TraductorService)
-  {
+export class PreguntadosComponent implements OnInit,OnDestroy
+{
 
+  @ViewChild("pagina") public pagina!:ElementRef;
+
+  constructor(private preguntados:PreguntadosService, private spinner:NgxSpinnerService, private traductor:TraductorService,private renderer2:Renderer2,private modo:ModoNocturnoService)
+  {
+    modo.$emisor.subscribe(()=>
+    {
+      this.cambiarModo()
+    })
   }
 
   public pregunta : string = "";
@@ -31,7 +39,19 @@ export class PreguntadosComponent implements OnInit,OnDestroy{
 
   async ngOnInit()
   {
+    if(this.modo.modoNocturno)
+    {
+      setTimeout(() => {
+        this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")        
+      }, 1);
+    }
     this.obtenerPregunta();
+  }
+
+  ngOnDestroy()
+  {
+    this.suscripcion.unsubscribe();
+    this.suscripcionDos.unsubscribe();
   }
 
   public generarInformacion(choice:any)
@@ -55,12 +75,6 @@ export class PreguntadosComponent implements OnInit,OnDestroy{
     var textArea = document.createElement('textarea');
     textArea.innerHTML = text;
     return textArea.value;
-  }
-
-  ngOnDestroy()
-  {
-    this.suscripcion.unsubscribe();
-    this.suscripcionDos.unsubscribe();
   }
 
   public guardarRespuestas(choice:any)
@@ -158,6 +172,18 @@ export class PreguntadosComponent implements OnInit,OnDestroy{
     this.vidas = 3;
     this.puntuacion = 0;
     await this.obtenerPregunta();
+  }
+
+  public cambiarModo()
+  {
+    if(this.modo.modoNocturno)
+    {
+      this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")
+    }
+    else
+    {
+      this.renderer2.removeClass(this.pagina.nativeElement,"modo-nocturno")
+    }  
   }
 }
 

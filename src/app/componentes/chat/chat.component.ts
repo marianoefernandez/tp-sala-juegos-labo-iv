@@ -2,8 +2,9 @@ import {Component, ElementRef, Renderer2, ViewChild,OnInit} from '@angular/core'
 import { Chat } from './chat';
 import { AutenticacionService } from 'src/app/servicios/autenticacion.service';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
-import {NgxSpinner, NgxSpinnerService} from 'ngx-spinner'
+import { NgxSpinnerService} from 'ngx-spinner'
 import { Subscription } from 'rxjs';
+import { ModoNocturnoService } from 'src/app/servicios/modo-nocturno.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,20 +13,24 @@ import { Subscription } from 'rxjs';
 })
 
 export class ChatComponent implements OnInit{
+
+  @ViewChild("pagina") public pagina!:ElementRef;
   
   public mensajes: Array<Chat> = [];
   public mensajeNuevo:string = "";
   public emailUsuario:string = this.autenticador.usuarioActual.email;
   public suscripcion!: Subscription;
 
-  constructor(private autenticador:AutenticacionService,private renderer2:Renderer2,private firestore:FirestoreService,private spinner:NgxSpinnerService)
+  constructor(private autenticador:AutenticacionService,private renderer2:Renderer2,private firestore:FirestoreService,private spinner:NgxSpinnerService,private modo:ModoNocturnoService)
   {
-    
+    modo.$emisor.subscribe(()=>
+    {
+      this.cambiarModo()
+    })
   }
 
   ngOnInit()
   {
-    let ahora = new Date();
     this.spinner.show();
     this.suscripcion = this.firestore.obtenerMensajes().subscribe(mensajes=>
       {
@@ -35,6 +40,13 @@ export class ChatComponent implements OnInit{
         }
         this.spinner.hide();
       })
+
+    if(this.modo.modoNocturno)
+    {
+      setTimeout(() => {
+        this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")        
+      }, 1);
+    }
   }
 
   ngDestroy()
@@ -56,6 +68,16 @@ export class ChatComponent implements OnInit{
     }
   }
 
-  
+  public cambiarModo()
+  {
+    if(this.modo.modoNocturno)
+    {
+      this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")
+    }
+    else
+    {
+      this.renderer2.removeClass(this.pagina.nativeElement,"modo-nocturno")
+    }  
+  }
 
 }

@@ -1,18 +1,20 @@
-<body *ngIf="autenticador.usuarioActual != null">
-  <nav class="navbar navbar-light bg-danger">
+<div id="navbar">
+  <nav class="navbar navbar-light bg-danger fixed-top">
     <div>
-      <input (click)="cerrarSesion()" type="image" src="https://static.thenounproject.com/png/29386-200.png"  id="btnSesion">
-      <input (click)="navigate('/principal/home')" type="image" src="https://cdn-icons-png.flaticon.com/512/25/25694.png"  id="btnHome">
+      <input (click)="cerrarSesion()" type="image" src="https://static.thenounproject.com/png/29386-200.png"  id="btnNavbar">
+      <input (click)="navigate('/principal/home')" type="image" src="https://cdn-icons-png.flaticon.com/512/25/25694.png"  id="btnNavbar">
+      <input (click)="cambiarModo()" *ngIf="modo.modoNocturno; else elseBlock" type="image" src="./assets/sol.png"  id="btnNavbar">
+      <ng-template #elseBlock><input (click)="cambiarModo()" type="image" src="./assets/luna.png"  id="btnNavbar"></ng-template>
     </div>
-
     
     <a class="navbar-brand" style="margin: 7px;">
     </a>
     <a class="navbar-brand">
-        <img *ngIf="autenticador.usuarioActual.photoURL != null; else elseBlock" style="border-radius: 100%;" src="{{autenticador.usuarioActual.photoURL}}" width="32" height="32" class="d-inline-block align-top" alt="">
-        <ng-template #elseBlock><img style="border-radius: 100%;" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" width="32" height="32" class="d-inline-block align-top" alt=""></ng-template>
+        <img *ngIf="autenticador.usuarioActual.photoURL != null; else elseBlock2" style="border-radius: 100%;" src="{{autenticador.usuarioActual.photoURL}}" width="32" height="32" class="d-inline-block align-top" alt="">
+        <ng-template #elseBlock2><img style="border-radius: 100%;" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" width="32" height="32" class="d-inline-block align-top" alt=""></ng-template>
         {{autenticador.usuarioActual.email}}
     </a>
-</nav>
+  </nav>
+</div>
+
 <router-outlet></router-outlet>
-</body>

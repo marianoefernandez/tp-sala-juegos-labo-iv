@@ -3,6 +3,25 @@
     height: 450px;
 	overflow-y: scroll;
     flex-wrap: wrap;
+	background-color: #f1eaea;
+}
+
+body 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #efefef;
+    flex-wrap: wrap;
+}
+
+#chat
+{
+	flex: auto;
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 10px 120px;
+    transition: .5s;
 }
 
 #mensaje
@@ -48,3 +67,64 @@
 	letter-spacing: 1px;
 }
 
+#fecha
+{
+	font-size: 8px;
+	font-weight: 400;
+	padding: 4px 3px;
+	letter-spacing: 1px;
+}
+
+button
+{
+	border-radius: 10px;
+	border: 1px solid #000000;
+	background-color: #07c861d8;
+	color: #0d0d0d;
+	font-weight: bold;
+	padding: 6px 20px;
+	margin: -7px -15px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+/* MODO NOCTURNO */
+
+.modo-nocturno
+{
+    background-color: #2b2121;
+    transition:background-color .5s;
+}
+
+.modo-nocturno #mensajes
+{
+	background-color: #000000;
+}
+
+.modo-nocturno #hora
+{
+	color: #FFFFFF;
+}
+
+.modo-nocturno #fecha
+{
+	color: #ece2e2e0;;
+}
+
+.modo-nocturno #mensaje
+{
+	border: 1px solid #ffffff;
+}
+
+.modo-nocturno input
+{
+	background-color: #000000;
+	color: white;
+}
+
+.modo-nocturno ::placeholder
+{
+	color: rgb(255, 255, 255);
+	opacity: 1;
+}

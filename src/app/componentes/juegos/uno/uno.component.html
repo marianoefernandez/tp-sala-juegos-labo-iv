@@ -1,6 +1,6 @@
-<body>
+<body #pagina>
     <button (click)="reiniciarJuego()" [hidden]="estadoJuego">Volver a jugar</button>
-    <div class="card-body text-black bg-dark" id="tablero">
+    <div class="card-body text-black" id="tablero">
         <p>Oponente:</p>
         <div id="cartasOponente" *ngFor="let carta of cartasOponente">
             <input type="image" src={{carta.texturaAtras}} id="cartaOponente" height="96px" width="96px">

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 import {firstValueFrom } from 'rxjs';
 import { MayorMenorService } from 'src/app/servicios/mayor-menor.service';
 import { MayorMenor } from './mayor-menor';
 import swal from'sweetalert2';
+import { ModoNocturnoService } from 'src/app/servicios/modo-nocturno.service';
 
 
 
@@ -13,9 +14,15 @@ import swal from'sweetalert2';
   styleUrls: ['./mayor-menor.component.css']
 })
 export class MayorMenorComponent implements OnInit {
-  constructor(private mayorMenor:MayorMenorService)
-  {
 
+  @ViewChild("pagina") public pagina!:ElementRef;
+
+  constructor(private mayorMenor:MayorMenorService,private modo:ModoNocturnoService,private renderer2:Renderer2)
+  {
+    modo.$emisor.subscribe(()=>
+    {
+      this.cambiarModo()
+    })
   }
 
   public juego!: MayorMenor;
@@ -25,12 +32,40 @@ export class MayorMenorComponent implements OnInit {
   public btnLabel = "Empezar partida";
   public mostrarPuntuacion = true;
   public puntuacionFinal = 0;
+  public fondoJuego = "#b7b4b7"
+  public letraColor = "black"
 
   async ngOnInit()
   {
+    
+    if(this.modo.modoNocturno)
+    {
+      setTimeout(() => {
+        this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")
+        this.fondoJuego = "#000000"    
+        this.letraColor = "white" 
+      }, 1);
+    }
+
     let mazo = await this.generarMazo();
     this.juego = new MayorMenor(mazo);
     this.juego.carta = await this.barajarCarta();
+  }
+
+  public cambiarModo()
+  {
+    if(this.modo.modoNocturno)
+    {
+      this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")
+      this.fondoJuego = "#000000"    
+      this.letraColor = "white"
+    }
+    else
+    {
+      this.renderer2.removeClass(this.pagina.nativeElement,"modo-nocturno")
+      this.fondoJuego = "#b7b4b7"
+      this.letraColor = "black"
+    }  
   }
 
   public async inicializarJuego()
@@ -74,9 +109,11 @@ export class MayorMenorComponent implements OnInit {
     swal.fire({
       title: 'Juego terminado',
       text:'Has obtenido :' + this.juego.puntuacion + ' puntos',
+      color:this.letraColor,
       showConfirmButton:true,
       showDenyButton: true,
       confirmButtonText: 'Volver a jugar',
+      background:this.fondoJuego,
       denyButtonText: `Salir`,
     }).then(async (result) => {
       if (result.isConfirmed) 
@@ -105,14 +142,15 @@ export class MayorMenorComponent implements OnInit {
   {
     console.log("Hola mostrar mensaje");
     this.cambiarImagenes();
+    console.log(this.fondoJuego)
 
     return swal.fire({
-          title: '<h1 style="color: black" >Mayor o Menor: <h1>',
+          title: '<h1 style="color:'  + this.letraColor + '" >Mayor o Menor: <h1>',
           html:
-            '<h3 style="color: black" >Puntaje:' + this.juego.puntuacion +  '<h3>' + 
+            '<h3 style="color:'  + this.letraColor + '" >Puntaje:' + this.juego.puntuacion +  '<h3>' + 
             '<img src="'+ this.imagenOculta +'" style="width: 200px" >, ' +
             '<img src="'+ this.imagenCartaAnterior +'" style="width: 200px" >," ',
-          background:"#b7b4b7",
+          background : this.fondoJuego,
           showDenyButton: true,
           confirmButtonText: 'Mayor',
           denyButtonText: `Menor`,
@@ -153,12 +191,12 @@ export class MayorMenorComponent implements OnInit {
     }
 
     return swal.fire({
-          title: '<h1 style="color: black" >' + mensaje + ': <h1>',
+          title: '<h1 style="color:' + this.letraColor +'" >' + mensaje + ': <h1>',
           html:
-            '<h3 style="color: black" >Puntaje:' + this.juego.puntuacion +  '<h3>' + 
+            '<h3 style="color: ' + this.letraColor +'" >Puntaje:' + this.juego.puntuacion +  '<h3>' + 
             '<img src="'+ this.imagenCarta +'" style="width: 200px" >, ' +
             '<img src="'+ this.imagenCartaAnterior +'" style="width: 200px" >," ',
-          background:"#b7b4b7",
+          background:this.fondoJuego,
           confirmButtonText: 'Ok',
         }).then((respuesta) => {
           /* Read more about isConfirmed, isDenied below */

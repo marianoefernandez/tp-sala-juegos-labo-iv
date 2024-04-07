@@ -45,3 +45,14 @@ body
     background: #efefef;
     flex-wrap: wrap;
 }
+
+.modo-nocturno
+{
+    background-color: #2b2121;
+    transition:background-color .5s;
+}
+
+.modo-nocturno h1 , .modo-nocturno p
+{
+    color: #FFFFFF;
+}

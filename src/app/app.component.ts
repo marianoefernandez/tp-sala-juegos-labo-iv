@@ -2,7 +2,6 @@ import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { AutenticacionService } from './servicios/autenticacion.service';
-import { firstValueFrom } from 'rxjs';
 
 
 @Component({

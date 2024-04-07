@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Ahorcado } from './ahorcado';
 import swal from'sweetalert2';
+import { ModoNocturnoService } from 'src/app/servicios/modo-nocturno.service';
 
 const temas = 
 [
@@ -38,6 +39,9 @@ const palabrasPorTema = {
 })
 export class AhorcadoComponent implements OnInit {
 
+  @ViewChild("pagina") public pagina!:ElementRef;
+
+
   public letrasJuego : any = [
     {'a': true},
     {'b': true},
@@ -68,9 +72,12 @@ export class AhorcadoComponent implements OnInit {
     {'z': true}
 ] 
 
-  constructor()
+  constructor(private modo:ModoNocturnoService,private renderer2:Renderer2)
   {
-
+    modo.$emisor.subscribe(()=>
+    {
+      this.cambiarModo()
+    })
   }
 
 
@@ -78,7 +85,12 @@ export class AhorcadoComponent implements OnInit {
 
   ngOnInit() 
   {
-
+    if(this.modo.modoNocturno)
+    {
+      setTimeout(() => {
+        this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")        
+      }, 1);
+    }
   }
 
   public devolverLetra(indice:number)
@@ -182,5 +194,17 @@ export class AhorcadoComponent implements OnInit {
         )
       }
     }
+  }
+
+  public cambiarModo()
+  {
+    if(this.modo.modoNocturno)
+    {
+      this.renderer2.addClass(this.pagina.nativeElement,"modo-nocturno")
+    }
+    else
+    {
+      this.renderer2.removeClass(this.pagina.nativeElement,"modo-nocturno")
+    }  
   }
 }
