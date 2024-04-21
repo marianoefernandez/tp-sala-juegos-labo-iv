@@ -150,6 +150,7 @@ export class UnoComponent implements OnInit {
   turnoBool:boolean = false;
   estadoJuego:boolean = true;
   cuentaCartas:number = 0;
+  puntuacion:number = 0;
 
   ngOnInit()
   {
@@ -357,6 +358,7 @@ export class UnoComponent implements OnInit {
             this.turnoBool = true;
             this.cartasMazo = this.cartasMazo.concat(this.cartasJugadas);
             this.cartasMazo = this.cartasMazo.concat(this.cartasJugador);
+            this.puntuacion = 0;
           }, 350);
         }
         else
@@ -490,37 +492,6 @@ export class UnoComponent implements OnInit {
         }))
   }
 
-  /*
-  public verificarSiTieneEspeciales()
-  {
-    let retorno = false;
-    if(this.turnoActual == "Jugador")
-    {
-      for(let i = 0;i<this.cartasJugador.length;i++)
-      {
-        if(this.cartasJugador[i].tipo == "+4" || this.cartasJugador[i].tipo == "+2")
-        {
-          retorno = true;
-          break;
-        }
-      }
-    }
-    else
-    {
-      for(let i = 0;i<this.cartasOponente.length;i++)
-      {
-        if(this.cartasOponente[i].tipo == "+4" || this.cartasOponente[i].tipo == "+2")
-        {
-          retorno = true;
-          break;
-        }
-      }
-    }
-    
-    return retorno;
-
-  }
-  */
   public async jugar(indiceCarta:number)
   {
     if(this.verificarJugada(this.cartasJugador[indiceCarta]))
@@ -542,7 +513,6 @@ export class UnoComponent implements OnInit {
         this.cuentaCartas += 4;
       }
 
-      console.log(this.cartaActual);
       this.spinner.show();
       if(this.cartasJugador.length == 0)
       {
@@ -559,6 +529,7 @@ export class UnoComponent implements OnInit {
           this.turnoBool = true;
           this.cartasMazo = this.cartasMazo.concat(this.cartasJugadas);
           this.cartasMazo = this.cartasMazo.concat(this.cartasOponente);
+          this.puntuacion +=1;
         }, 350);
       }
       else

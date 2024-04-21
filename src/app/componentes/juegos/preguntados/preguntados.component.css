@@ -36,7 +36,7 @@ p
     right: 450px;
 }
 
-#respuestas
+.respuestas
 {
     text-align: center;
     align-items: center;
@@ -44,7 +44,7 @@ p
     margin: 3px;
 }
 
-#btnRespuesta 
+.btnRespuesta 
 {
 	border-radius: 30px;
     width: 800px;

@@ -10,8 +10,8 @@
     </div>
     <h3>Pregunta : {{pregunta}}</h3>
     <div *ngFor="let respuesta of respuestas; index as i" id="respuestas">      
-        <div id="respuestas">
-            <button id="btnRespuesta" [disabled]="!volverAJugarBoton" (click)="jugar(i)">{{respuesta}}</button>
+        <div class="respuestas">
+            <button class="btnRespuesta" [disabled]="!volverAJugarBoton" (click)="jugar(i)">{{respuesta}}</button>
         </div>
     </div>
     <p id="puntaje">Puntaje: {{puntuacion}}</p>

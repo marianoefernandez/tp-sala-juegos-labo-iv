@@ -1,12 +1,13 @@
 <body #pagina>
     <button (click)="reiniciarJuego()" [hidden]="estadoJuego">Volver a jugar</button>
+    <p>Puntuación: {{puntuacion}} partidas seguidas ganadas</p>
     <div class="card-body text-black" id="tablero">
         <p>Oponente:</p>
         <div id="cartasOponente" *ngFor="let carta of cartasOponente">
             <input type="image" src={{carta.texturaAtras}} id="cartaOponente" height="96px" width="96px">
         </div>
 
-        <p>Color carta cartaActual: {{cartaActual.color}} </p>
+        <p>Color de la carta actual: {{cartaActual.color}} </p>
         <p>Cartas Acumuladas: {{cuentaCartas}} </p>
 
         <div id="cartaMedio">

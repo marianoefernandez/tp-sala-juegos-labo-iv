@@ -1,7 +1,7 @@
 import { Component, OnInit ,OnDestroy, ElementRef, ViewChild, Renderer2} from '@angular/core';
 import { PreguntadosService } from 'src/app/servicios/preguntados.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 import swal from 'sweetalert2';
 import { TraductorService } from 'src/app/servicios/traductor.service';
 import { ModoNocturnoService } from 'src/app/servicios/modo-nocturno.service';
@@ -26,6 +26,7 @@ export class PreguntadosComponent implements OnInit,OnDestroy
   }
 
   public pregunta : string = "";
+  public preguntas : any = [];
   public tematica : string = "";
   public respuestaCorrecta : string = "";
   public respuestas : Array<string> = [];
@@ -97,32 +98,43 @@ export class PreguntadosComponent implements OnInit,OnDestroy
     }
   }
 
-  public obtenerPregunta()
+  public async obtenerPreguntas()
   {
-    this.spinner.show();
-    this.suscripcion = this.preguntados.obtenerPregunta().subscribe(async (respuesta: any)=>
+    return firstValueFrom(this.preguntados.obtenerPreguntas());
+  }
+
+  public async obtenerPregunta()
+  {
+    setTimeout(async () => {
+      this.spinner.show();
+
+      if(this.preguntas.length == 0)
       {
-        let choice = respuesta["results"][0];
-        let informacion = this.generarInformacion(choice);
-        let tematicaIngles = choice["category"];
-        let informacionTraducida = await this.traductor.traducir(informacion);
-        
-        if(informacionTraducida != null)
-        {
-          this.generarPregunta(informacionTraducida);
-        }
-        else
-        {
-          this.generarPregunta(informacion);
-        }
-        
-        this.suscripcionDos = this.preguntados.obtenerFoto(tematicaIngles).subscribe((respuesta:any)=>
-        {
-          let indice = Math.floor(Math.random() * (9 - 0)) + 0;
-          this.foto = respuesta["results"][indice]["urls"]["regular"];
-          this.spinner.hide();            
-        });    
-      });
+        this.preguntas = await this.obtenerPreguntas();
+        this.preguntas = this.preguntas["results"];
+      }
+
+      let choice = this.preguntas[0];
+      let informacion = this.generarInformacion(choice);
+      let tematicaIngles = choice["category"];
+      let informacionTraducida = await this.traductor.traducir(informacion);
+      
+      if(informacionTraducida != null)
+      {
+        this.generarPregunta(informacionTraducida);
+      }
+      else
+      {
+        this.generarPregunta(informacion);
+      }
+      
+      this.suscripcionDos = this.preguntados.obtenerFoto(tematicaIngles).subscribe((respuesta:any)=>
+      {
+        let indice = Math.floor(Math.random() * (9 - 0)) + 0;
+        this.foto = respuesta["results"][indice]["urls"]["regular"];
+        this.spinner.hide();            
+    });   
+    }, 500);
   }
 
 
@@ -162,6 +174,7 @@ export class PreguntadosComponent implements OnInit,OnDestroy
     }
     else
     {
+      this.preguntas.splice(0,1);
       this.obtenerPregunta();
     }
   }
