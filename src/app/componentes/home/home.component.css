@@ -21,7 +21,7 @@ body {
     border-radius: 5px;
     overflow: hidden;
     transition: .5s;
-    margin: 15px 20px;
+    margin: 120px 20px;
 }
 
 .card:hover {

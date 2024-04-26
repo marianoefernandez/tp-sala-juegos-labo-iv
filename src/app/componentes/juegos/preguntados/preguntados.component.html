@@ -1,9 +1,11 @@
 <body #pagina>
 <button id="btnJugar" [hidden]="volverAJugarBoton" (click)="rejugar()">Volver a jugar</button>
-<div id="logo">
-    <img id="logo" src="./assets/preguntados/preguntados_logo.png" width="64px" height="64px">
+<div id="header">
+    <div id="logo">
+        <img id="logo" src="./assets/preguntados/preguntados_logo.png" width="48px" height="48px">
+    </div>
+    <p id="tematica">Tema: {{tematica}}</p>
 </div>
-<p id="tematica">Tema: {{tematica}}</p>
 <div class="card-body text-black bg-danger" id="tablero">
     <div id="foto">
         <img src={{foto}} width="400px" height="200px">        

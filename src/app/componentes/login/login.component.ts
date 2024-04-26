@@ -55,12 +55,19 @@ export class LoginComponent {
           }
           else
           {
-            this.navigate("sesiones/validar-email");
+            this.autenticador.cerrarSesion();
+            this.mensajeError = "Email no se ha verificado todavia";
+            setTimeout(() => {
+              this.mensajeError = "";
+            }, 2000);
           }
         }
         else
         {
           this.mostrarError(respuesta);
+          setTimeout(() => {
+            this.mensajeError = "";
+          }, 2000);
         }
         this.spinner.hide();
       },500)

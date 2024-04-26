@@ -2,6 +2,7 @@ import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import {AutenticacionService} from '../../servicios/autenticacion.service'
 import { NgxSpinnerService } from 'ngx-spinner';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -47,11 +48,24 @@ export class RegistroComponent
         if(typeof respuesta != "string")
         {
           console.log("Registrado con éxito: " + this.email);
-          this.navigate("sesiones/validar-email");
+          swal.fire
+          (
+            {
+              title:"Registrado con éxito",
+              text:"Por favor verifique el email: " + this.email + " para poder iniciar sesión correctamente.",
+              icon:'success'
+            }
+          ).then(()=>
+          {
+            this.cambiarPanel("login");
+          })
         }
         else
         {
           this.mostrarError(respuesta)//Acá iria el mensaje en la vista
+          setTimeout(() => {
+            this.mensajeError = "";
+          }, 2000);
         }
         this.spinner.hide()
       }, 500)

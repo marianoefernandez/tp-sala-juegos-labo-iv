@@ -3,10 +3,7 @@
     <div class="card" id="juego">
         <h1>Juego del Ahorcado</h1>
         <h2>El clásico juego del ahorcado consiste en adivinar la palabra oculta por los guiones, el jugador tiene 6 posibilidades para adivinar la palabra. Por cada letra acertada el jugador ganara 10 puntos, por cada letra errada perdera 5, si el jugador adivina la palabra completa gana 100 puntos</h2>
-        
-        <div id="btnJugar">
-            <button (click)="rejugar()" [hidden]="juego.estadoJuego">Volver a jugar</button>
-        </div>
+        <button (click)="rejugar()" [hidden]="juego.estadoJuego">Volver a jugar</button>
 
         <div>
             <div class="pantalla">

@@ -11,8 +11,8 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    margin: 10px;
+    padding: 5px;
+    margin: 5px;
 }
 
 p
@@ -95,11 +95,17 @@ body
 {
     flex: auto;
     width: 1100px;
-    height: 550px;
+    height: 525px;
     background: #fff;
     border-radius: 40px;
     overflow: hidden;
     margin: 10px 120px;
+}
+
+#header
+{
+    float: left;
+    margin-top: 70px
 }
 
 /* MODO NOCTURNO */

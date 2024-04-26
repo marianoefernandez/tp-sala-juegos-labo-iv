@@ -3,8 +3,7 @@ body
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 100vh;
-    min-height: 120vh;
+    min-height: 90vh;
     background: #efefef;
     flex-wrap: wrap;
 }
@@ -91,7 +90,7 @@ h2
     background: #fff;
     border-radius: 40px;
     overflow: hidden;
-    margin: 10px 120px;
+    margin: 100px 120px;
     transition: .5s;
 }
 
@@ -103,15 +102,15 @@ h2
 }
 
 button
-{
-    max-width: min-content;
+{   
+    margin: 0px 540px;
+    
     border-radius: 20px;
 	border: 1px solid #000000;
     background-color: #ff0000;
 	color: #FFFFFF;
-    font-size: 24px;
+    font-size: 11px;
 	font-weight: bold;
-	padding: 12px 45px;
 	letter-spacing: 1px;
     text-transform: uppercase;
 	transition: transform 80ms ease-in;
@@ -147,6 +146,11 @@ button
 }
 
 .modo-nocturno .ahorcado
+{
+    filter: invert(100%);
+}
+
+.modo-nocturno .letra:disabled
 {
     filter: invert(100%);
 }

@@ -1,6 +1,6 @@
 <body #pagina>
+    <p id="titulo" class="text-primary">Puntuación: {{puntuacion}} partidas seguidas ganadas</p>
     <button (click)="reiniciarJuego()" [hidden]="estadoJuego">Volver a jugar</button>
-    <p>Puntuación: {{puntuacion}} partidas seguidas ganadas</p>
     <div class="card-body text-black" id="tablero">
         <p>Oponente:</p>
         <div id="cartasOponente" *ngFor="let carta of cartasOponente">

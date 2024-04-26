@@ -3,8 +3,13 @@ p
     text-align: center;
     font-size: large;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    margin: 20px 20px;
+    margin: 5px;
     color: #000000;
+}
+
+#titulo
+{
+    margin-top: 80px;
 }
 
 body 
@@ -12,7 +17,7 @@ body
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 160vh;
+    min-height: 100vh;
     background: #efefef;
     flex-wrap: wrap;
 }
@@ -62,8 +67,8 @@ body
 
 #cartaMedio
 {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 #mazo
@@ -88,23 +93,22 @@ body
     text-align: center;
     flex: auto;
     width: 1100px;
-    height: 950px;
+    height: 550px;
     background: #8d7f7f;
     border-radius: 40px;
     overflow: hidden;
-    margin: 10px 120px;
+    margin: 30px 120px;
 }   
 
 button
 {
-    max-width: min-content;
+    margin: 0px 540px;
     border-radius: 20px;
 	border: 1px solid #000000;
     background-color: #ff0000;
 	color: #FFFFFF;
-    font-size: 24px;
+    font-size: 11px;
 	font-weight: bold;
-	padding: 12px 45px;
 	letter-spacing: 1px;
     text-transform: uppercase;
 	transition: transform 80ms ease-in;
